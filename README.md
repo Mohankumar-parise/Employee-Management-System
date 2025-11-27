@@ -97,65 +97,65 @@ Before running the project, make sure you have:
 
 ## 🏃‍♂️ Project Setup & Run (Step by Step)
 
-4. Login & Use the Application
+## 4. Login & Use the Application
 
-Open browser and go to: http://localhost:3000
+- Open browser and go to: http://localhost:3000
 
-You’ll see the Login page (if authentication is enabled on frontend).
+- You’ll see the Login page (if authentication is enabled on frontend).
 
-Enter credentials of an existing user (e.g., pre-seeded admin user)
+- Enter credentials of an existing user (e.g., pre-seeded admin user)
 
-Example:
+   -- Example:
 
-admin@example.com / password
+     --- admin@example.com / password
 
-(Change as per your actual data)
+     --- (Change as per your actual data)
 
-On successful login:
+- On successful login:
 
-Frontend stores JWT token in localStorage
+   -- Frontend stores JWT token in localStorage
 
-You’re redirected to Employee Dashboard / Home
+   -- You’re redirected to Employee Dashboard / Home
 
-From there, you can:
+- From there, you can:
 
-View employee list
+   -- View employee list
 
-Add a new employee
+   -- Add a new employee
 
-Edit employee details
+   -- Edit employee details
 
-Delete employee
+   -- Delete employee
 
-🧠 How the Application Works (High-Level Flow)
+## 🧠 How the Application Works (High-Level Flow)
 
-User opens app → hits React frontend (localhost:3000).
+- User opens app → hits React frontend (localhost:3000).
 
-Login request (/auth/login) sent to Spring Boot backend (localhost:8080).
+- Login request (/auth/login) sent to Spring Boot backend (localhost:8080).
 
-Backend verifies credentials and returns JWT token.
+- Backend verifies credentials and returns JWT token.
 
-React stores the token in localStorage.
+- React stores the token in localStorage.
 
-Every API call (e.g., /employees) uses Axios with header:
-
+- Every API call (e.g., /employees) uses Axios with header:
+```txt
 Authorization: Bearer <JWT_TOKEN>
+```
 
+- Spring Security filter validates token:
 
-Spring Security filter validates token:
+   -- If valid → request proceeds to controller → service → repository → database.
 
-If valid → request proceeds to controller → service → repository → database.
+   -- If invalid/expired → 401/403 error response.
 
-If invalid/expired → 401/403 error response.
+- MySQL stores all employee data.
 
-MySQL stores all employee data.
+- Frontend shows data returned from backend and handles errors gracefully.
 
-Frontend shows data returned from backend and handles errors gracefully.
-
-##📁 Project Structure
+## 📁 Project Structure
 
 ### Backend Structure
-
+```txt
 backend/src/main/java/com/skills.employee.management/
 │
 ├── controller
@@ -181,8 +181,9 @@ backend/src/main/java/com/skills.employee.management/
 │
 └── security
       └── (JWT utilities, filters, security config)
-
+```
 ### Frontend Structure
+```txt
 frontend/src/
 │
 ├── components
@@ -199,7 +200,7 @@ frontend/src/
 │
 ├── App.js
 └── index.js
-
+```
 
 ## 1. Clone the Repository
 git clone https://github.com/Mohankumar-parise/Employee-Management-System.git
@@ -296,7 +297,7 @@ If successful, frontend will run at:
 | POST   | `/auth/login`    | Authenticate & get JWT |
 
 #### Login Response Example:
-```
+```txt
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "username": "admin@example.com",
@@ -306,7 +307,7 @@ If successful, frontend will run at:
 
 ### Employee APIs
 All secured endpoints require header:
-```
+```txt
 Authorization: Bearer <JWT_TOKEN>
 ```
 | Method | Endpoint          | Description         |
@@ -318,26 +319,26 @@ Authorization: Bearer <JWT_TOKEN>
 | DELETE | `/employees/{id}` | Delete employee     |
 
 ---
-Common Issues & Fixes
-1. 403 Forbidden on API calls
+## Common Issues & Fixes
+### 1. 403 Forbidden on API calls
 
-Check if JWT token is sent in headers:
+- Check if JWT token is sent in headers:
 
-Open browser DevTools → Network tab → click request → Headers → Request Headers
+-- Open browser DevTools → Network tab → click request → Headers → Request Headers
 
-You should see:
-
+-- You should see:
+```txt
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
 
+- Ensure React is reading correct localStorage key (e.g., token).
 
-Ensure React is reading correct localStorage key (e.g., token).
+- Make sure Spring Security config permits login APIs and secures others correctly.
 
-Make sure Spring Security config permits login APIs and secures others correctly.
+### 2. Access denied / CORS error
 
-2. Access denied / CORS error
-
-Add CORS configuration in backend (if needed):
-
+- Add CORS configuration in backend (if needed):
+```txt
 @Bean
 public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
@@ -351,14 +352,14 @@ public WebMvcConfigurer corsConfigurer() {
         }
     };
 }
+```
+### 3. Database connection error
 
-3. Database connection error
+- Check DB name in application.properties
 
-Check DB name in application.properties
+- Confirm MySQL is running
 
-Confirm MySQL is running
-
-Verify username/password
+- Verify username/password
 
 ## Application Screenshots (Step-by-Step Flow)
 
@@ -418,28 +419,28 @@ The updated employee list is shown after the delete operation.
 
 
 
-🚀 Future Enhancements
+## 🚀 Future Enhancements
 
-Pagination & sorting for employee list
+- Pagination & sorting for employee list
 
-Role-based UI (Admin vs User)
+- Role-based UI (Admin vs User)
 
-Dockerize backend & frontend
+- Dockerize backend & frontend
 
-Deploy to cloud (Render / Railway / AWS)
+- Deploy to cloud (Render / Railway / AWS)
 
-Microservice separation (Auth Service, Employee Service, etc.)
+- Microservice separation (Auth Service, Employee Service, etc.)
 
-👨‍💻 Author
+## 👨‍💻 Author
 
-PARISE MOHANKUMAR
+### PARISE MOHANKUMAR
 
-Java & Spring Boot Developer
+- Java & Spring Boot Developer
 
-React.js | MySQL | REST APIs
+- React.js | MySQL | REST APIs
 
-GitHub: https://github.com/Mohankumar-parise
+- GitHub: https://github.com/Mohankumar-parise
 
-LinkedIn: https://www.linkedin.com/in/mohankumar-parise/
+- LinkedIn: https://www.linkedin.com/in/mohankumar-parise/
 
 If you find this project helpful, feel free to ⭐ star the repository.
