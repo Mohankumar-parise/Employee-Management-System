@@ -1,0 +1,5 @@
+body {
+  background-color: #f7f9fc;
+  font-family: 'Segoe UI', sans-serif;
+  padding-top: 0;  /* IMPORTANT: for fixed navbar */
+}
